@@ -1,0 +1,6 @@
+Example-LeftAtrium: Uses the dataset Training/06SR5RBREL16DQ6M8LWS from https://www.cardiacatlas.org/atriaseg2018-challenge/atria-seg-data/ (opensource dataset for the 2018 Atrial Segmentation Challenge)
+
+Example-Biatrial-MRI: Uses the dataset Training/06SR5RBREL16DQ6M8LWS from https://www.cardiacatlas.org/atriaseg2018-challenge/atria-seg-data/ (opensource dataset for the 2018 Atrial Segmentation Challenge). We have manually segmented the RA blood pool and provide the label raendo.nrrd. 
+
+Example-Biatrial-CT-shape-model: Uses a dataset from https://zenodo.org/records/4506930, Final_models_01, model number 1. We have extracted the surfaces using meshtool. 
+
