@@ -19,20 +19,26 @@
 1. Set up the folder Examples/Example-LeftAtrium/1Clipping/LA_mesh1, and copy across the data from Examples/Example-LeftAtrium/0ImagingData
 2. Load segmented.vtk in paraview and open the mesh by clipping it at the pulmonary veins and mitral valve, extracting the surface after each clip. If you open the state file Clips.pvsm with the provided segmented.vtk file (use the 'Search names under specified directory' option); you should be able to see the sphere clippers that we used to clip the veins/valve in the example (and in the figures below). 
 3. Triangulate and extract the final surface, and save it as Clipped.stl, which you will also be able to open and view in paraview. This will be the input for the landmarking step.
-    
-    segmented.vtk:
         
     Clip1 (Clips.pvsm): right supervior pulmonary vein
+   ![Clip1](https://github.com/pcmlab/atrialmtk/blob/main/images/rspv.png?raw=true)
         
     Clip2 (Clips.pvsm): right inferior pulmonary vein
-        
-    Clip3 (Clips.pvsm): left superior pulmonary vein
+    ![Clip2](https://github.com/pcmlab/atrialmtk/blob/main/images/ripv.png?raw=true)
        
+    Clip3 (Clips.pvsm): left superior pulmonary vein
+    ![Clip3](https://github.com/pcmlab/atrialmtk/blob/main/images/lspv.png?raw=true)
+      
     Clip4 (Clips.pvsm): left inferior pulmonary vein
+    ![Clip4](https://github.com/pcmlab/atrialmtk/blob/main/images/lipv.png?raw=true)
        
     Clip5 (Clips.pvsm): mitral valve
-    
+    ![Clip5](https://github.com/pcmlab/atrialmtk/blob/main/images/mv.png?raw=true)
+
+   
     Clipped.stl:
+    ![Clipped](https://github.com/pcmlab/atrialmtk/blob/main/images/clipped.png?raw=true)
+
     
 **Landmarking**
 
@@ -51,7 +57,7 @@
     ```
     python Rough_Point_Picking.py
     ```
-    
+![pyvista-regions](https://github.com/pcmlab/atrialmtk/blob/main/images/la-regions-pyvista.png?raw=true)    
     
 7. Follow the steps for “general point picking” from the “Instructions for landmark selection” below. Select the 6 landmarks by right clicking or pressing P with the cursor at the desired location,  making sure to select the points in the same order as listed in the python script, and close the window. The coordinates will be saved automatically in a text file Regions.txt.
 8. Next, you will need to provide the model with some more specific information. Update DataPath in Refined_Point_Picking.py to match the folder containing Clipped.stl.
@@ -60,10 +66,11 @@
     ```
     python Refined_Point_Picking.py
     ```
-    
     and follow the steps for “specific point selection” in the “Instructions for landmark selection”below to select these 4 additional points. Again make sure to do this in the same order as in the script. These points will need to be selected more carefully, so make sure to read through the steps fully, and make use of the reference images below. When you are finished close the window. You will find these coordinates saved in the text file Landmarks.txt.
-    
-10. Once you have finished with the point selection, deactivate the conda environment using:
+   
+   ![pyvista-landmarks](https://github.com/pcmlab/atrialmtk/blob/main/images/la-landmarks-pyvista.png?raw=true)       
+  
+11. Once you have finished with the point selection, deactivate the conda environment using:
 
     ```
     conda deactivate
@@ -77,29 +84,32 @@
 1. Copy the surface Clipped.stl and the coordinate files Regions.txt and Landmarks.txt from Examples/Example-LeftAtrium/2Landmarking/LA_Mesh1 to the processing folder Examples/Example-LeftAtrium/3Processing/LA_Mesh1.
 2. Update the paths in the file **mri-la.sh**, found in the folder src/3Processing, so that PROJECT is the path to the folder containing the universal atrial coordinate (UAC) codes (src/3Processing/UAC_Codes), DATA contains the path to the processing step for the example (Examples/Example-LeftAtrium/3Processing), and ConvertFilesLoc is the path to the python script trans_mod.py (src/3Processing/UAC_Codes).
 3. Set index=1 to correspond to LA_Mesh1 of the Example case, or change it to 2 if you have set up a second version of the example, LA_Mesh2 etc.
-4. Follow the steps on the general README for the docker installation of openCARP, in order to run the script [mri-la.sh](http://mri-la.sh). (You only need to do this step once.)
+4. Follow the steps on the general README for the docker installation of openCARP, in order to run the script mri-la.sh. (You only need to do this step once.)
 5. In order to run mri-la.sh, which automatically separates the surface into its different atrial regions, adds atrial fibres and generates a bilayer model, you will need to create and activate the second conda environment for UAC (follow the steps “1b. Universal Atrial Coordinates (UAC) environment” in the general README). If you have already created this environment, you will only need to activate it:
-    
+
+    ```
     conda activate uac
+    ```
     
-6. With the uac environment active, cd to the src folder and run ./[mri-la.sh](http://mri-la.sh) to generate a mesh with regions, fibres, atrial coordinates, and initial conditions. Each stage will produce a number of output files. These can be checked by running the commands from mri-la.sh step-by-step and comparing with the example outputs. (Note you may need to change the permissions for mri-la.sh to allow it to run as an executable e.g. in Linux).
-7. When this code has finished, type: conda deactivate
-8. You can open the meshes in Paraview or meshalyzer and compare to the examples below. Surface regions for the left atria (The LA body is shown in dark blue, LAA in light blue, and the LSPV, LIPV, RSPV, and RIPV shown in gradually darker shades of pink/red).
+    
+    
+7. With the uac environment active, cd to the src folder and run mri-la.sh to generate a mesh with regions, fibres, atrial coordinates, and initial conditions. Each stage will produce a number of output files. These can be checked by running the commands from mri-la.sh step-by-step and comparing with the example outputs. (Note you may need to change the permissions for mri-la.sh to allow it to run as an executable e.g. in Linux).
+8. When this code has finished, type: conda deactivate
+9. You can open the meshes in Paraview or meshalyzer and compare to the examples below. 
 
-Fibre_l.vtk (view 1):
-
-Fibre_l.vtk (view 2):
-
-LabelledCoords_2D_Rescaling_v3_C.vtk
+ ![lauac](https://github.com/pcmlab/atrialmtk/blob/main/images/lauac.png?raw=true) 
 
 Please also see notes here if you would like more information on the different stages of the code: 
+[UAC_README](/src/3Processing/README.md)
+
 
 **Simulation**
 
 1. From the outputs of the Processing step, you will need the mesh Fibre_l.pts, Fibre_l.elem, the fibre file, Fibre_l.lon, and the LAT field, LAT_Spiral4_B.dat. Copy them from Examples/Example-LeftAtrium/3Processing/LA_Mesh1 to the simulation folder Examples/Example-LeftAtrium/4Simulation/LA_Mesh1
 2. Also copy AF_Simulation.par from src to the Simulation folder.
 3. Use the following command, updated to have the path to your simulation folder there, to run the simulation step of the model:
-docker run ...
+docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-LeftAtrium/4Simulation/LA_Mesh1:/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F AF_Simulation.par -simID AF
+
  
 ---
 
@@ -124,47 +134,30 @@ docker run ...
     vi) Left atrial appendage base (LAA base)
     
     View 1 (general points):
-    
+    ![LA_Regions_roof](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Regions_roof.png?raw=true) 
     
     View 2 (general points):
-    
+    ![LA_Regions_LAA](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Regions_LAA.png?raw=true) 
     
     **Specific point selection**
     
     Now select points at specific locations in the following order (as listed in the python script Refined_Point_Picking.py) 
     
-    i) The LAA
+    i) On the lateral wall, in line with the LSPV, posterior of the LAA; 
+  View 1 (specific points):
+   ![LA_Landmarks_lateralwall](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_lateralwall.png?raw=true) 
+
    
-    ii) On the septal wall, in line with the RSPV
+    ii) On the septal wall, in line with the RSPV;
+   View 2 (specific points):
+   ![LA_Landmarks_septalwall](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_septalwall.png?raw=true) 
    
-    iii) Approximately at the intersection of the LSPV and the body of the left atrium (LA), level with the roof 
+   iii) Approximately at the intersection of the LSPV and the body of the left atrium (LA), level with the roof
+   View 3 (specific points):
+   ![LA_Landmarks_roof](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_roof.png?raw=true) 
     
     iv) Approximately at the intersection between the RSPV and the LA, at the level of the roof
-    
-    
-    View 1 (specific points):
-    
-    
-    View 2 (specific points):
-    
-    
-    View 3 (specific points):
-    
-    View 4 (specific points):
-    
+
     
     The atrial regions will then be identified automatically using Laplace solvers in CARPentry
-    
-3. **Landmark selection for the right atrium**
-    
-    **General point selection**
-    
-    First, roughly select the anatomical landmarks in the following order (as instructed in the python script…)
-    
-    a) …
-    
-    **Specific point selection**
-    
-    Now select points at specific locations in the following order (as listed in the python script…)
-    
-    a) …
+
