@@ -1,6 +1,8 @@
 # atrialmtk
 **Atrial Modelling Toolkit for Constructing Bilayer and Volumetric Atrial Models at Scale**
 
+To enable large in silico trials and personalised model predictions on clinical timescales, it is imperative that models can be constructed quickly and reproducibly. First, we aimed to overcome the challenges of constructing cardiac models at scale through developing a robust, open-source pipeline for bilayer and volumetric atrial models. Second, we aimed to investigate the effects of fibres, fibrosis and model representation (surface or volumetric) on fibrillatory dynamics. To construct bilayer and volumetric models, we extended our previously developed coordinate system to incorporate transmurality, atrial regions, and fibres (rule-based or data driven diffusion tensor MRI). We demonstrate the generalisation of these methods by creating a cohort of 1000 biatrial bilayer and volumetric models derived from CT data, as well as models from MRI, and electroanatomic mapping. Fibrillatory dynamics diverged between bilayer and volumetric simulations across the CT cohort (correlation co-efficient for phase singularity maps: LA 0.27±0.19, RA 0.41±0.14). Adding fibrotic remodelling stabilised re-entries and reduced the impact of wall thickness in the LA (LA: 0.52±0.20, RA: 0.36±0.18). The choice of fibre field has a small effect on paced activation data (<12ms), but a larger effect on fibrillatory dynamics. Overall, we developed an open-source user-friendly pipeline for generating atrial models from imaging or electroanatomic mapping enabling in silico clinical trials at scale.
+
 # Installation instructions
 
 ## ************Docker************
