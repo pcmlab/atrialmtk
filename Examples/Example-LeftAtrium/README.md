@@ -9,6 +9,9 @@
     They can also be exported as surface meshes (.vtk format) using any of these software. 
     
     E.g. itksnap:
+
+   ![itk-snap](https://github.com/pcmlab/atrialmtk/blob/main/images/itk-snap-LA.png?raw=true)
+
     
 
 **Clipping**
