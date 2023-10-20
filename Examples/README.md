@@ -1,6 +1,6 @@
 # **Usage** 
 
-We have included the following examples: 
+Each of the examples has a separate README file detailing all steps, please check instead the folders for these. 
 
 ## **Example-LeftAtrium**
 
