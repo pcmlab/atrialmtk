@@ -1,0 +1,53 @@
+#Parameter file
+vofile   = vm_atria_regular
+dt = 20
+tend = 100.1
+ 
+#IONIC SETUP
+num_imp_regions = 3
+ 
+#Myocardium (set default to Left atrium parameters)
+imp_region[0].im       = Courtemanche
+imp_region[0].im_param = "GNa*2.0,Gto=0.0826,GKr=0.047058824,GCaL=0.037125,GK1*0.8,factorGKur*0.5"
+
+ 
+#LAA
+imp_region[1].im       = Courtemanche
+imp_region[1].num_IDs  = 1
+imp_region[1].ID  = 13
+imp_region[1].im_param = "GNa*2.0,Gto=0.05615,GKr=0.047058824,GCaL=0.037125,GK1*0.8,factorGKur*0.5"
+
+ 
+#PV
+imp_region[2].im       = Courtemanche
+imp_region[2].num_IDs  = 4
+imp_region[2].ID  = 21, 23, 25, 27
+imp_region[2].im_param = "GNa*2.0,Gto=0.06195,GKr=0.070588236,GCaL=0.02784375,GK1*0.67,GKs*1.87,factorGKur*0.5"
+
+ 
+#Conductivity values/Tissue properties
+num_gregions = 1
+# set all myocardium
+gregion[0].g_il = 0.4
+gregion[0].g_it = 0.107
+ 
+#Stimulus setup
+num_stim = 0
+ 
+#I/0 parameters
+timedt = 1
+spacedt = 1 #can increase to reduce data file size
+ 
+#Meshname
+meshname = Fibre_l
+ 
+#Matrix data
+bidm_eqv_mono = 0
+experiment = 0
+mat_entries_per_row = 45
+parab_solve = 1
+cg_tol_ellip = 1e-4
+bidomain = 0
+prepacing_lats = LAT_Spiral4_B.dat
+prepacing_bcl = 165
+prepacing_beats = 100
