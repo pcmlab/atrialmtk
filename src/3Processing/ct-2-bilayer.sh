@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PROJECT=/Volumes/Elements_CR/atrialmtk/src/3Processing/UAC_Codes/UAC_Codes-refactorisation
+PROJECT=/Volumes/Elements_CR/atrialmtk/src/3Processing/UAC_Codes
 DATA="/Volumes/Elements_CR/atrialmtk/Examples/Example-Biatrial-CT-shape-model/3Processing"
 export PYTHONPATH=$PROJECT
 
