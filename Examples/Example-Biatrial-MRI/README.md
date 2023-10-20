@@ -15,7 +15,7 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
     They can also be exported as surface meshes (.vtk format) using any of these software. 
     
     E.g. itksnap:
-    
+    ![itk-snap](https://github.com/pcmlab/atrialmtk/blob/main/images/itk-snap-RA.png?raw=true)
 
 **Clipping**
 
@@ -27,19 +27,19 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
     
     
     **Clip1 (Clips.pvsm): superior vena cava** 
-    
+    ![Clip1](https://github.com/pcmlab/atrialmtk/blob/main/images/svc.png?raw=true)
     
     **Clip2 (Clips.pvsm): inferior vena cava** 
-    
+    ![Clip2](https://github.com/pcmlab/atrialmtk/blob/main/images/ivc.png?raw=true)
     
     **Clip3 (Clips.pvsm): coronary sinus** 
-    
+    ![Clip3](https://github.com/pcmlab/atrialmtk/blob/main/images/cs.png?raw=true)
     
     **Clip4 (Clips.pvsm): tricuspid valve** 
-    
+    ![Clip4](https://github.com/pcmlab/atrialmtk/blob/main/images/tv.png?raw=true)
     
     **Clipped.stl:**
-    
+    ![Clipped](https://github.com/pcmlab/atrialmtk/blob/main/images/clippedra.png?raw=true)
     
 
 **Landmarking**
@@ -60,7 +60,8 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
     python Rough_Point_Picking.py
     ```
     
-    
+ ![pyvista-regions](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-regions-pyvista.png?raw=true) 
+ 
 7. Follow the steps for “general point picking” from the “Instructions for landmark selection” below. Select the 6 landmarks by right clicking or pressing P with the cursor at the desired location,  making sure to select the points in the same order as listed in the python script, and close the window. The coordinates will be saved automatically in a text file Regions.txt.
 8. Next, you will need to provide the model with some more specific information. Update DataPath in Refined_Point_Picking.py to match the folder containing Clipped.stl.
 9. With the point picking environment still active, run:
@@ -92,18 +93,18 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
     ```
     
 6. With the uac environment active, cd to the src folder and run ./mri-ra.sh to generate an RA mesh with regions, fibres, atrial coordinates, and initial conditions. Each stage will produce a number of output files. These can be checked by running the commands from mri-ra.sh step-by-step and comparing with the example outputs. (Note you may need to change the permissions for mri-ra.sh to allow it to run as an executable e.g. in Linux).
-7. You can open the meshes in Paraview or meshalyzer and compare to the examples below. Surface regions for the right atria (The RA body is shown in dark blue, RAA in light blue, and the SVC, IVC, and CS shown in gradually darker shades of pink/red).
+7. You can open the meshes in Paraview or meshalyzer and compare to the examples.
 
-**Fibre_l.vtk (view 1):**
-
-**Fibre_l.vtk (view 2):**
-
-**LabelledCoords_2D_Rescaling_v3_C.vtk**
-
+ 
 **Finally, run ./mri-biatrial.**
 This code will combine the LA and RA meshes to make a bilayer model with atrial regions and fibres. 
 
 When this code has finished, type: conda deactivate
+
+ ![biatrial](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial.png?raw=true) 
+  ![biatrial2](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial2.png?raw=true) 
+   ![biatrial3](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial3.png?raw=true) 
+    ![biatrial4](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial4.png?raw=true) 
 
 **Simulation**
 
@@ -111,10 +112,12 @@ When this code has finished, type: conda deactivate
 2. Also copy AF_Simulation.par from src to the Simulation folder.
 3. Use the following command, updated to have the path to your simulation folder there, to run the simulation step of the model:
 docker run ...
-
-    **Example figures**
+Initial conditions used for simulation: 
+  ![biatriallat](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial_LAT.png?raw=true) 
     
 
 ---
 
 **********************************************************************Instructions for landmark selection**********************************************************************
+
+   
