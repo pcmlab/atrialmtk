@@ -1,0 +1,1 @@
+docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-Biatrial-MRI/4Simulation/RA_Mesh1:/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F AF_Simulation.par -simID AF
