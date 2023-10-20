@@ -1,0 +1,12 @@
+name: UAC
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.8
+  - numpy=1.23.1
+  - scikit-learn
+  - vtk==9.0.3
+  - meshio
+  - pytest-shutil
+  - coverage

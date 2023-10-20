@@ -1,0 +1,19 @@
+meshname = AnteriorMesh
+
+experiment           = 2        # perform Laplace solve only
+bidomain             = 1
+
+# set isotropic conductivities everywhere
+num_gregions = 1
+gregion[0].g_et = 1
+gregion[0].g_el = 1
+gregion[0].g_en = 1
+gregion[0].g_il = 1
+gregion[0].g_it = 1
+gregion[0].g_in = 1
+
+num_stim = 1
+stimulus[0].stimtype =     2    # extracellular voltage
+stimulus[0].vtx_file =     Ant_Strength_Test_PA1
+stimulus[0].vtx_fcn  =     1
+stimulus[0].strength =     1.0

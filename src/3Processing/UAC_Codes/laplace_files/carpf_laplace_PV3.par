@@ -1,0 +1,33 @@
+meshname = Labelled
+
+num_imp_regions = 1
+imp_region[0].im = MBRDR 
+
+bidomain = 1
+experiment = 2
+
+num_gregions = 1
+gregion[0].g_et = 1
+gregion[0].g_el = 1
+gregion[0].g_en = 1
+gregion[0].g_il = 1
+gregion[0].g_it = 1
+gregion[0].g_in = 1
+
+gregion[0].num_IDs = 1
+gregion[0].ID[0] = 2
+
+ellip_use_pt = 1
+parab_use_pt = 1
+
+num_stim = 2 
+stimulus[0].start = 0
+stimulus[0].duration = 1
+stimulus[0].strength = 0
+stimulus[0].stimtype = 2
+stimulus[0].vtx_file = MV
+stimulus[1].start = 0
+stimulus[1].duration = 1
+stimulus[1].strength = 1
+stimulus[1].stimtype = 2
+stimulus[1].vtx_file = PV3

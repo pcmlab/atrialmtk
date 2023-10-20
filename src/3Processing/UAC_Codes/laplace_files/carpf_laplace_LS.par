@@ -1,0 +1,25 @@
+meshname = Labelled
+
+experiment           = 2        # perform Laplace solve only
+bidomain             = 1
+
+# set isotropic conductivities everywhere
+num_gregions = 1
+gregion[0].g_et = 1
+gregion[0].g_el = 1
+gregion[0].g_en = 1
+gregion[0].g_il = 1
+gregion[0].g_it = 1
+gregion[0].g_in = 1
+
+
+num_stim = 2
+# ground electrode
+stimulus[0].stimtype = 3
+stimulus[0].vtx_file = LSbc1
+
+# stimulus electrode
+stimulus[1].duration = 1
+stimulus[1].strength = 1
+stimulus[1].stimtype = 2
+stimulus[1].vtx_file = LSbc2
