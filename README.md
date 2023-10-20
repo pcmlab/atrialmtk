@@ -115,13 +115,14 @@ This example generates a left atrial surface model from the Atrial Challenge dat
 
 4Simulation
 
+![LA model](https://github.com/pcmlab/atrialmtk/blob/main/images/laP.png?raw=true)
 
 
 ## **[Example-Biatrial-MRI](/Examples/Example-Biatrial-MRI/README.md)**
 
 This example generates a biatrial bilayer model from the Atrial Challenge dataset. This example can be run after the Example-LeftAtrium to add the right atrial component of the model, and interatrial connections as a biatrial bilayer model. The steps are detailed in the same categories as for Example-LeftAtrium. 
 
-
+![Biatrial model](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial3.png?raw=true)
 
 ## **[Example-Biatrial-CT-shape-model](/Examples/Example-Biatrial-CT-shape-model/README.md)**
 
@@ -137,4 +138,4 @@ This example generates a biatrial bilayer model and a biatrial volumetric model 
 
 (these meshes do not require any clipping). 
 
-
+![Biatrial CT model](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-biatrial.png?raw=true)
