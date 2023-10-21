@@ -121,8 +121,8 @@ docker run ...
     vi) Left atrial appendage base (LAA base)
     
     View 1 (general points):
-    
-    View 2 (general points):
+     ![ct-la-regions](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-la-regions.png?raw=true) 
+
 
  
     **Specific point selection**
@@ -137,19 +137,24 @@ As for point iii, the ring of nodes at the ostia is split into two paths from th
     
     iii) **On the lateral wall, in line with the LSPV, posterior of the LAA.** A geodesic path is calculated from the bottom of the LSPV ostia to the MV through this point. You want to ensure this path is posterior of the LAA, so that the entire LAA is assigned to the anterior component of the UAC. (The example shown here is a tricky one, often it is easy to select a point further from the LAA.)
      
-  View 1 (specific points):
+
 
    iv) **On the septal wall, in line with the RSPV.** Similar to the first point, a geodesic path is calculated from the bottom of the RSPV ostia to the MV through this point. This point is also used to assign line connections in the biatrial bilayer connections at the fossa ovalis, so should be chosen accordingly. 
    
-   View 2 (specific points):
    
    v) **Approximately at the intersection of the LSPV and the body of the LA (i.e. at the ostia), at the centre of the posterior wall path.** The ring of nodes at the ostia is split into two paths from the point on the LSPV ostia closest to the RSPV to the highest point (at the roof). This point is used to say which of the paths is on the posterior wall, so should be chosen about midway along the path.  
 
-   View 3 (specific points):
     vi) **Approximately at the intersection between the RSPV and the LA (i.e. at the ostia), at the centre of the posterior wall path.**  
 As for point iii, the ring of nodes at the ostia is split into two paths from the point on the RSPV ostia closest to the LSPV to the highest point (at the roof). This point is used to say which of the paths is on the posterior wall, so should be chosen about midway along the path.   
     
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+  View 1 (specific points):                                                                                                                  
+  ![ct-la-landmarks-roof](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-la-landmarks-roof.png?raw=true) 
+                                                                                                                                              View 2 (specific points):
+    ![ct-la-landmarks-lateral](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-la-landmarks-lateral.png?raw=true) 
+    
+  View 3 (specific points):
+    ![ct-la-landmarks-septal](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-la-landmarks-septal.png?raw=true) 
+
                                                                                                                                                                                                                                                                                                                                           
 1. **********************************Landmark selection for the right atrium**********************************
     
@@ -172,29 +177,40 @@ As for point iii, the ring of nodes at the ostia is split into two paths from th
 Here points i) and iv) are used to say which path is on the lateral wall. The ring of nodes at the vena cava and RA body junction is split into two paths between the lowest and highest points (using specific points i and v or ii and vi described below). 
 
 View 1 (general points):
+     ![ct-ra-regions-roof](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-ra-regions-roof.png?raw=true) 
+
 
 View 2 (general points):
+    ![ct-ra-regions-raa](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-ra-regions-raa.png?raw=true) 
+
 
 **Specific point selection**
 Now select points at specific locations in the following order (as listed in the python script Refined_Point_Picking.py)    
 
 i) **Lowest point on the SVC/RA ostia.** Two paths are calculated from the SVC/RA ostia point closest to the TV to point (v). I.e. the ring of nodes at the ostia is split into two paths. 
      
-  View 1 (specific points):
 
    ii) **Lowest point on the IVC/RA ostia.** Two paths are calculated from the IVC/RA ostia point closest to the TV to point (vi). 
    
-   View 2 (specific points):
    
    iii) **On the septal wall, in line with the SVC, septal of the RAA.*** A geodesic path is calculated from the bottom of the SVC ostia to the TV through this point. You want to ensure this path is septal of the RAA, so that the entire RAA is assigned to the lateral component of the UAC. 
    
-   View 3 (specific points):
    
    iv) **On the septal wall, in line with the IVC.** Similar to point iii, a geodesic path is calculated from the bottom of the IVC ostia to the TV through this point. This point is also used to assign line connections in the biatrial bilayer connections at the fossa ovalis, so should be chosen accordingly.  
 
    v) **Highest point on the SVC/RA ostia (at the roof).**  Two paths are calculated from the SVC/RA ostia point closest to the TV (i) to this point. 
 
    vi) **Highest point on the IVC/RA ostia (at the roof).** Two paths are calculated from the IVC/RA ostia point closest to the TV (i) to this point.  
+
+  View 1 (specific points):
+    ![ct-ra-landmarks-svc](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-ra-landmarks-svc.png?raw=true) 
+
+
+
+  View 2 (specific points):
+    ![ct-ra-landmarks-ivc](https://github.com/pcmlab/atrialmtk/blob/main/images/ct-ra-landmarks-ivc.png?raw=true) 
+
+
 
     
 The atrial regions will then be identified automatically using Laplace solvers in CARPentry
