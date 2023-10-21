@@ -119,7 +119,7 @@ docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-LeftAtr
     
     **General point selection**
     
-    First, roughly select a point somewhere on each anatomical landmark that is listed in Rough_Point_Picking.py. Make sure to do this in the same order as in the script:
+    First, roughly select a point somewhere on each anatomical landmark that is listed in Rough_Point_Picking.py. If the pulmonary veins are close together, select points on opposite sides of each (i.e. as far from another vein as possible); the script uses these points to assign which vein is which. The LAA tip point is used as a boundary condition location of the Laplace-Dirichlet solve. Make sure to do this in the same order as in the script:
     
     i) Right superior pulmonary vein (RSPV)
     
@@ -143,21 +143,22 @@ docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-LeftAtr
     
     Now select points at specific locations in the following order (as listed in the python script Refined_Point_Picking.py) 
     
-    i) On the lateral wall, in line with the LSPV, posterior of the LAA; 
+    i) **On the lateral wall, in line with the LSPV, posterior of the LAA.** A geodesic path is calculated from the bottom of the LSPV ostia to the MV through this point. You want to ensure this path is posterior of the LAA, so that the entire LAA is assigned to the anterior component of the UAC. (The example shown here is a tricky one, often it is easy to select a point further from the LAA.)
+     
   View 1 (specific points):
    ![LA_Landmarks_lateralwall](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_lateralwall.png?raw=true) 
 
+   ii) **On the septal wall, in line with the RSPV.** Similar to the first point, a geodesic path is calculated from the bottom of the RSPV ostia to the MV through this point. This point is also used to assign line connections in the biatrial bilayer connections at the fossa ovalis, so should be chosen accordingly. 
    
-    ii) On the septal wall, in line with the RSPV;
    View 2 (specific points):
    ![LA_Landmarks_septalwall](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_septalwall.png?raw=true) 
    
-   iii) Approximately at the intersection of the LSPV and the body of the left atrium (LA), level with the roof
+   iii) **Approximately at the intersection of the LSPV and the body of the LA (i.e. at the ostia), at the centre of the posterior wall path.** The ring of nodes at the ostia is split into two paths from the point on the ostia closest to the RSPV to the highest point (at the roof). This point is used to say which of the paths is on the posterior wall, so should be chosen about midway along the path.  
+   
    View 3 (specific points):
    ![LA_Landmarks_roof](https://github.com/pcmlab/atrialmtk/blob/main/images/LA_Landmarks_roof.png?raw=true) 
+    iv) **Approximately at the intersection between the RSPV and the LA (i.e. at the ostia), at the centre of the posterior wall path.**  
+As for point iii, the ring of nodes at the ostia is split into two paths from the point on the ostia closest to the LSPV to the highest point (at the roof). This point is used to say which of the paths is on the posterior wall, so should be chosen about midway along the path.   
     
-    iv) Approximately at the intersection between the RSPV and the LA, at the level of the roof
-
-    
-    The atrial regions will then be identified automatically using Laplace solvers in CARPentry
+The atrial regions will then be identified automatically using Laplace solvers in CARPentry
 
