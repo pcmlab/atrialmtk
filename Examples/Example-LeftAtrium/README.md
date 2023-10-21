@@ -83,7 +83,7 @@
 
 1. Copy the surface Clipped.stl and the coordinate files Regions.txt and Landmarks.txt from Examples/Example-LeftAtrium/2Landmarking/LA_Mesh1 to the processing folder Examples/Example-LeftAtrium/3Processing/LA_Mesh1.
 2. Update the paths in the file **mri-la.sh**, found in the folder src/3Processing, so that PROJECT is the path to the folder containing the universal atrial coordinate (UAC) codes (src/3Processing/UAC_Codes), DATA contains the path to the processing step for the example (Examples/Example-LeftAtrium/3Processing), and ConvertFilesLoc is the path to the python script trans_mod.py (src/3Processing/UAC_Codes).
-3. Set index=1 to correspond to LA_Mesh1 of the Example case, or change it to 2 if you have set up a second version of the example, LA_Mesh2 etc.
+3. Set index=1 to correspond to LA_Mesh1 of the Example case, or change it to 2 if you have set up a second version of the example, LA_Mesh2 etc. **There are also two manual thresholds to set in this file: PVLabelT and LAALabelT**, please see the instructions below on how to set these. 
 4. Follow the steps on the general README for the docker installation of openCARP, in order to run the script mri-la.sh. (You only need to do this step once.)
 5. In order to run mri-la.sh, which automatically separates the surface into its different atrial regions, adds atrial fibres and generates a bilayer model, you will need to create and activate the second conda environment for UAC (follow the steps “1b. Universal Atrial Coordinates (UAC) environment” in the general README). If you have already created this environment, you will only need to activate it:
 
@@ -161,4 +161,43 @@ docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-LeftAtr
 As for point iii, the ring of nodes at the ostia is split into two paths from the point on the ostia closest to the LSPV to the highest point (at the roof). This point is used to say which of the paths is on the posterior wall, so should be chosen about midway along the path.   
     
 The atrial regions will then be identified automatically using Laplace solvers in CARPentry
+
+
+---
+
+**********************************************************************Manual thresholds for region labelling**********************************************************************
+
+You need to set the following thresholds in the mri-la.sh script, PVLabelT and LAALabelT. These are used to threshold the Laplace-Dirichlet solves as either PV/LAA tissue or LA tissue. To set these thresholds, you can try different values for the Laplace-Dirichlet solve as demonstrated in these figures. Typically, you can fix these values for a given data type if you have processed the meshes in a similar way. You may need to change if you have a very different LAA morphology.
+
+E.g. if we have the following Laplace solve: 
+   ![Laplace LA](https://github.com/pcmlab/atrialmtk/blob/main/images/Laplace-la.png?raw=true) 
+
+Thresholding at 0.7: 
+   ![Laplace LA T](https://github.com/pcmlab/atrialmtk/blob/main/images/Laplace-la-T.png?raw=true) 
+
+   and for the LAA: 
+    ![Laplace LA](https://github.com/pcmlab/atrialmtk/blob/main/images/Laplace-laa.png?raw=true) 
+
+Thresholding at 0.25: 
+   ![Laplace LA T](https://github.com/pcmlab/atrialmtk/blob/main/images/Laplace-laa-T.png?raw=true) 
+
+Then we have the following regions:
+  ![la-regions-labels](https://github.com/pcmlab/atrialmtk/blob/main/images/la-regions-labels.png?raw=true) 
+
+ A similar approach is required for the RA in mri-ra.sh. 
+
+
+---
+
+**********************************************************************Fibre map choice**********************************************************************
+
+You can vary the fibre map used by changing the following line in mri-la.sh:
+  python $PROJECT/scripts/fibre_mapping.py "$LAPath/" "$PROJECT/fibre_files/la/endo/l/" "$PROJECT/laplace_files/" Labelled Labelled.lon Fibre_l
+
+You can change: "$PROJECT/fibre_files/la/endo/l/" to any of "$PROJECT/fibre_files/la/endo/1/", ..., "$PROJECT/fibre_files/la/endo/6/"  or "$PROJECT/fibre_files/la/endo/a/". This will change to different DT-MRI fibre atlases. 
+   
+
+
+
+
 
