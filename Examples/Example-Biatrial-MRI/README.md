@@ -22,9 +22,7 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
 1. Set up the folder Examples/Example-Biatrial-MRI/1Clipping/RA_mesh1, and copy across the RA data from Examples/Example-Biatrial-MRI0ImagingData
 2. Load segmented.vtk in paraview and open the mesh by clipping it at the vena cava, coronary sinus and tricuspid valve, extracting the surface after each clip. If you open the state file Clips.pvsm with the provided segmented.vtk file (use the 'Search names under specified directory' option); you should be able to see the sphere clippers that we used to clip the vena cava/valve in the example (also see the figures below). 
 3. Triangulate and extract the final surface, and save it as Clipped.stl, which you will also be able to open and view in paraview. This will be the input for the landmarking step.
-    
-    **segmented.vtk:**
-    
+        
     
     **Clip1 (Clips.pvsm): superior vena cava** 
     ![Clip1](https://github.com/pcmlab/atrialmtk/blob/main/images/svc.png?raw=true)
@@ -108,10 +106,12 @@ When this code has finished, type: conda deactivate
 
 **Simulation**
 
-1. From the outputs of the Processing step, you will need the mesh Fibre_l.pts, Fibre_l.elem, the fibre file, Fibre_l.lon, and the LAT field, LAT_Spiral4_B.dat. Copy them from Examples/Example-LeftAtrium/3Processing/LA_Mesh1 to the simulation folder Examples/Example-LeftAtrium/4Simulation/LA_Mesh1
+1. From the outputs of the Processing step, you will need the mesh Fibre_l.pts, Fibre_l.elem, the fibre file, Fibre_l.lon, and the LAT field, LAT_Spiral4_B.dat for an RA model. For a biatrial simulatiom, use Bilayer_Combined_all_Lines_IAC.pts, Bilayer_Combined_all_Lines_IAC.elem, Bilayer_Combined_all_Lines_IAC.lon and BiatrialcombinedLAT_Spiral4_B.dat. 
+Copy them from Examples/Example-Biatrial-MRI/3Processing/RA_Mesh1 to the simulation folder Examples/Example-Biatrial-MRI/4Simulation/RA_Mesh1
 2. Also copy AF_Simulation.par from src to the Simulation folder.
 3. Use the following command, updated to have the path to your simulation folder there, to run the simulation step of the model:
 docker run ...
+
 Initial conditions used for simulation: 
   ![biatriallat](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial_LAT.png?raw=true) 
     
@@ -120,4 +120,51 @@ Initial conditions used for simulation:
 
 **********************************************************************Instructions for landmark selection**********************************************************************
 
+1. **********************************Landmark selection for the right atrium**********************************
+    
+    **General point selection**
+    
+    First, select a point somewhere on each anatomical landmark that is listed in Rough_Point_Picking.py. The RAA tip point is used as a boundary condition location of the Laplace-Dirichlet solve. Make sure to do this in the same order as in the script:
+    
+    i) **Inferior vena cava path choice** 
+    
+    ii) **Coronary sinus**
+    
+    iii) **Roof between SVC and IVC**
+    
+    iv) **Superior vena cava path choice** 
+    
+    v) **Right atrial appendage tip (RAA tip)**
+    
+    vi) **Right atrial appendage base (RAA base)**
+
+Here points i) and iv) are used to say which path is on the lateral wall. The ring of nodes at the vena cava and RA body junction is split into two paths between the lowest and highest points (using specific points i and v or ii and vi described below). 
+
+View 1 (general points):
+
+View 2 (general points):
+
+**Specific point selection**
+Now select points at specific locations in the following order (as listed in the python script Refined_Point_Picking.py)    
+
+i) **Lowest point on the SVC/RA ostia.** Two paths are calculated from the SVC/RA ostia point closest to the TV to point (v). I.e. the ring of nodes at the ostia is split into two paths. 
+     
+  View 1 (specific points):
+
+   ii) **Lowest point on the IVC/RA ostia.** Two paths are calculated from the IVC/RA ostia point closest to the TV to point (vi). 
+   
+   View 2 (specific points):
+   
+   iii) **On the septal wall, in line with the SVC, septal of the RAA.*** A geodesic path is calculated from the bottom of the SVC ostia to the TV through this point. You want to ensure this path is septal of the RAA, so that the entire RAA is assigned to the lateral component of the UAC. 
+   
+   View 3 (specific points):
+   
+   iv) **On the septal wall, in line with the IVC.** Similar to point iii, a geodesic path is calculated from the bottom of the IVC ostia to the TV through this point. This point is also used to assign line connections in the biatrial bilayer connections at the fossa ovalis, so should be chosen accordingly.  
+
+   v) **Highest point on the SVC/RA ostia (at the roof).**  Two paths are calculated from the SVC/RA ostia point closest to the TV (i) to this point. 
+
+   vi) **Highest point on the IVC/RA ostia (at the roof).** Two paths are calculated from the IVC/RA ostia point closest to the TV (i) to this point.  
+
+    
+The atrial regions will then be identified automatically using Laplace solvers in CARPentry
    
