@@ -143,8 +143,12 @@ Initial conditions used for simulation:
 Here points i) and iv) are used to say which path is on the lateral wall. The ring of nodes at the vena cava and RA body junction is split into two paths between the lowest and highest points (using specific points i and v or ii and vi described below). 
 
 View 1 (general points):
+ ![ra-regions-roof](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-regions-roof.png?raw=true) 
+
 
 View 2 (general points):
+ ![ra-regions-cs](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-regions-cs.png?raw=true) 
+  
 
 **Specific point selection**
 Now select points at specific locations in the following order (as listed in the python script Refined_Point_Picking.py)    
@@ -152,20 +156,26 @@ Now select points at specific locations in the following order (as listed in the
 i) **Lowest point on the SVC/RA ostia.** Two paths are calculated from the SVC/RA ostia point closest to the TV to point (v). I.e. the ring of nodes at the ostia is split into two paths. 
      
   View 1 (specific points):
+ ![ra-landmarks-svc](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-landmarks-svc.png?raw=true) 
+
 
    ii) **Lowest point on the IVC/RA ostia.** Two paths are calculated from the IVC/RA ostia point closest to the TV to point (vi). 
    
    View 2 (specific points):
-   
+    ![ra-landmarks-ivc](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-landmarks-ivc.png?raw=true) 
+
+
    iii) **On the septal wall, in line with the SVC, septal of the RAA.*** A geodesic path is calculated from the bottom of the SVC ostia to the TV through this point. You want to ensure this path is septal of the RAA, so that the entire RAA is assigned to the lateral component of the UAC. 
    
-   View 3 (specific points):
    
    iv) **On the septal wall, in line with the IVC.** Similar to point iii, a geodesic path is calculated from the bottom of the IVC ostia to the TV through this point. This point is also used to assign line connections in the biatrial bilayer connections at the fossa ovalis, so should be chosen accordingly.  
 
    v) **Highest point on the SVC/RA ostia (at the roof).**  Two paths are calculated from the SVC/RA ostia point closest to the TV (i) to this point. 
 
    vi) **Highest point on the IVC/RA ostia (at the roof).** Two paths are calculated from the IVC/RA ostia point closest to the TV (i) to this point.  
+
+   View 3 (specific points):
+   ![ra-landmarks-roof](https://github.com/pcmlab/atrialmtk/blob/main/images/ra-landmarks-roof.png?raw=true) 
 
     
 The atrial regions will then be identified automatically using Laplace solvers in CARPentry. 
