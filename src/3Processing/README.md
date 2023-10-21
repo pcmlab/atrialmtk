@@ -21,7 +21,7 @@ Each of the files follow a similar format, calculating Universal Atrial Coordina
 
 ### Example-LeftAtrium, mri-la.sh
 
-**stage1** (trans_mod.py):
+**stage1** (trans_mod.py, from Ed Vigmond):
 
 * Convert surface mesh from clipping step from stl to carp format to remesh it to simulation grade
 
@@ -29,7 +29,7 @@ Each of the files follow a similar format, calculating Universal Atrial Coordina
 
 * outputs: Labelled.pts, Labelled.elem, Labelled.fcon, Lablled.lon (carp txt)
 
-**stage2** (meshtool convert - rescale):
+**stage2** (meshtool convert - rescale, https://bitbucket.org/aneic/meshtool/src/master/):
 
 * Rescale the mesh into the required units for the simulation
 
