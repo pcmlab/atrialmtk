@@ -1,4 +1,4 @@
-# Steps for Biatrial bilayer and volumetric model generation. 
+##  Steps for Biatrial bilayer and volumetric model generation. 
 
 This example generates a biatrial bilayer model and a biatrial volumetric model from a CT-derived statistical shape model. 
 In this case, we start with the atrial surfaces, and progress through the steps to generate two versions of the model in a bilayer format (triangular mesh) and a volumetric format (tetrahedral mesh). 
