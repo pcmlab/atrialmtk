@@ -82,7 +82,7 @@ Next follow these steps for RA mesh generation, and then for biatrial bilayer an
 
 1. Copy the surface Clipped.stl and the coordinate files Regions.txt and Landmarks.txt from Examples/Example-Biatrial-MRI/2Landmarking/RA_Mesh1 to the processing folder Examples/Example-Biatrial-MRI/3Processing/RA_Mesh1.
 2. Update the paths in the file **mri-ra.sh**, found in the folder src/3Processing, so that PROJECT is the path to the folder containing the universal atrial coordinate (UAC) codes (src/3Processing/UAC_Codes), DATA contains the path to the processing step for the example (Examples/Example--Biatrial-MRI/3Processing), and ConvertFilesLoc is the path to the python script trans_mod.py (src/3Processing/UAC_Codes).
-3. Set index=1 to correspond to RA_Mesh1 of the Example case, or change it to 2 if you have set up a second version of the example, RA_Mesh2 etc.
+3. Set index=1 to correspond to RA_Mesh1 of the Example case, or change it to 2 if you have set up a second version of the example, RA_Mesh2 etc. **There are also two manual thresholds to set in this file: PVLabelT and LAALabelT**, please see the instructions on LeftAtrium example for how to set these. These determine the locations of the junction between the vena cava/CS and RA tissue, and the RAA and RA tissue. 
 4. Follow the steps on the general README for the docker installation of openCARP, in order to run the script mri-ra.sh. (You only need to do this step once.)
 5. In order to run mri-ra.sh, which automatically separates the surface into its different atrial regions, adds atrial fibres and generates a bilayer model, you will need to create and activate the second conda environment for UAC (follow the steps “1b. Universal Atrial Coordinates (UAC) environment” in the general README). If you have already created this environment, you will only need to activate it:
     
@@ -103,6 +103,8 @@ When this code has finished, type: conda deactivate
   ![biatrial2](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial2.png?raw=true) 
    ![biatrial3](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial3.png?raw=true) 
     ![biatrial4](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial4.png?raw=true) 
+
+Note: You can change the choice of fibre field in mri-la.sh, mri-ra.sh and mri-bilayer.sh in the fibre mapping commands by changing: "$PROJECT/fibre_files/ra/epi/l/", change "l" to 1-6 or a for DT-MRI 1-6, or the average fibre field. 
 
 **Simulation**
 
@@ -166,5 +168,5 @@ i) **Lowest point on the SVC/RA ostia.** Two paths are calculated from the SVC/R
    vi) **Highest point on the IVC/RA ostia (at the roof).** Two paths are calculated from the IVC/RA ostia point closest to the TV (i) to this point.  
 
     
-The atrial regions will then be identified automatically using Laplace solvers in CARPentry
+The atrial regions will then be identified automatically using Laplace solvers in CARPentry. 
    
