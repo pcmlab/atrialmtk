@@ -36,7 +36,7 @@ To install with sudo access, please follow these steps post-installation:
 5. Verify that you can run docker commands without sudo:
     
     ```
-   docker run —rm hello-world
+   docker run --rm hello-world
     ```
     
     This command downloads a test image and runs it in a container. When the container runs, it prints a message and exits.
@@ -51,13 +51,13 @@ Docker installation: https://opencarp.org/download/installation#installation-of-
 1. Once docker is installed on your machine with sudo access, do: 
     
     ```
-   docker pull [docker.opencarp.org/opencarp/opencarp:latest](http://docker.opencarp.org/opencarp/opencarp:latest)
+   docker pull http://docker.opencarp.org/opencarp/opencarp:latest
     ```
     
 3. Then check you have some output from: 
     
    ```
-   docker run -it [docker.opencarp.org/opencarp/opencarp:latest](http://docker.opencarp.org/opencarp/opencarp:latest)
+   docker run -it http://docker.opencarp.org/opencarp/opencarp:latest
    ```
     
     The command line should change to something like: root@……..:/openCARP#
