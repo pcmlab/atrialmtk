@@ -32,7 +32,6 @@ LAPath="$DATA/LA_Mesh"$index/
 
 echo $RAPath
 
-'''
 python $PROJECT/scripts/scalar_mapping_bilayer.py  "$RAPath" "$ES_dir/" Labelled Labelled_Extra_RA_BB Labelled_Coords_2D_Rescaling_v3_C Labelled_Coords_2D_Rescaling_v3_C Extra_SAN.dat MappedScalar_SAN.dat
 python $PROJECT/scripts/scalar_mapping_bilayer.py  "$RAPath" "$ES_dir/" Labelled Labelled_Extra_RA_BB Labelled_Coords_2D_Rescaling_v3_C Labelled_Coords_2D_Rescaling_v3_C Extra_CT.dat MappedScalar_CT.dat
 python $PROJECT/scripts/scalar_mapping_bilayer.py  "$RAPath" "$ES_dir/" Labelled Labelled_Extra_RA_BB Labelled_Coords_2D_Rescaling_v3_C Labelled_Coords_2D_Rescaling_v3_C Extra_PM.dat MappedScalar_PM.dat
@@ -119,8 +118,6 @@ docker run --rm --volume="$RAPath":/shared:z --workdir=/shared docker.opencarp.o
 
 
 docker run --rm --volume="$RAPath":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest meshtool extract mesh -msh=Bilayer_Combined -tags=10 -submsh=BB_mesh -ofmt=carp_txt
-
-'''
 
 #make bilayer mesh with lines & visualisation
 python $PROJECT/scripts/biatrial_bilayer_iac_lines_visualisation.py "$LAPath" "$RAPath" "$RAPath" Bilayer_Combined Labelled Fibre_Labarthe_Bilayer $LandmarksLA $RegionRA 1000 1
