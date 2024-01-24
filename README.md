@@ -82,7 +82,7 @@ If you have installed openCARP as a docker container you will already have mesht
     
     conda activate pointpicking
     
-    python -m pip install pyvista
+    python -m pip install pyvista==0.38.5
     
 (you will then be able to run the code using: python Rough_Point_Picking.py)
 
