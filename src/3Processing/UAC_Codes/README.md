@@ -20,14 +20,13 @@ These options are shown in the following Figure:
 
 
 ## Dependencies
-To run these atrial coordinates codes, we recommend using the conda virtual environment. In order to create this environment:
+To run these atrial coordinates codes, we recommend using a conda virtual environment with the packages installed by pip. From this folder:
 ```
-conda env create -f environment.yml
-```
-and activate it:
-```
+conda create -n uac -c conda-forge python=3.8 -y
 conda activate uac
+pip install -r requirements.txt
 ```
+On Apple Silicon Macs, create the environment with `CONDA_SUBDIR=osx-64 conda create -n uac -c conda-forge python=3.8 -y` and run `conda config --env --set subdir osx-64` after activating it. See the main [README](../../../README.md#conda-environments) for details.
 
 To calculate the Laplace solves required for the method, we use opencarp. We suggest downloading a docker and calling as shown in the example usage code. Installation instructions: https://opencarp.org/download/installation#installation-of-opencarp-docker-containers
 Tutorial here: https://opencarp.org/documentation/examples/02_ep_tissue/13_laplace

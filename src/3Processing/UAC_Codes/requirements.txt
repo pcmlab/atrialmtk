@@ -1,0 +1,8 @@
+# Python packages for the uac environment (Python 3.8).
+# Install with:  pip install -r requirements.txt
+numpy==1.23.1
+vtk==9.0.3
+scikit-learn
+meshio
+pytest-shutil
+coverage

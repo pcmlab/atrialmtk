@@ -1,12 +1,10 @@
-name: UAC
+# Equivalent to the pip route in the main README. The README commands are
+# recommended; this file is kept for tools that expect an environment.yml.
+name: uac
 channels:
-  - anaconda
   - conda-forge
 dependencies:
   - python=3.8
-  - numpy=1.23.1
-  - scikit-learn
-  - vtk==9.0.3
-  - meshio
-  - pytest-shutil
-  - coverage
+  - pip
+  - pip:
+      - -r requirements.txt
