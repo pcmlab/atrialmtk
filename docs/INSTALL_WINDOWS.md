@@ -129,7 +129,7 @@ To open files that live in WSL, use **File → Open** in ParaView and type this 
 
 You can also browse there in File Explorer and pin the folder to *Quick access*.
 
-**meshalyzer (inside WSL).** Follow the *Linux and Windows (WSL)* meshalyzer instructions in the [main README](../README.md#visualisation-paraview-and-meshalyzer). It runs inside Ubuntu and its window appears on the Windows desktop. On WSL the AppImage usually needs the `--appimage-extract` step described there.
+**meshalyzer (inside WSL).** Follow the *Linux and Windows (WSL)* meshalyzer instructions in the [main README](../README.md#visualisation-paraview-and-meshalyzer). It runs inside Ubuntu and its window appears on the Windows desktop. If it fails with a FUSE error, use the `--appimage-extract` step described there.
 
 (A native Windows build, `meshalyzer_win64-<version>.zip`, is also available on the meshalyzer releases page. Extract it to a permanent folder such as `C:\Tools\meshalyzer` and run `meshalyzer.exe`. If Windows shows *Windows protected your PC*, click *More info → Run anyway*. This is convenient for viewing results from Windows, but the WSL version is easier to use alongside the pipeline.)
 
