@@ -111,8 +111,9 @@ Note: You can change the choice of fibre field in mri-la.sh, mri-ra.sh and mri-b
 1. From the outputs of the Processing step, you will need the mesh Fibre_l.pts, Fibre_l.elem, the fibre file, Fibre_l.lon, and the LAT field, LAT_Spiral4_B.dat for an RA model. For a biatrial simulatiom, use Bilayer_Combined_all_Lines_IAC.pts, Bilayer_Combined_all_Lines_IAC.elem, Bilayer_Combined_all_Lines_IAC.lon and BiatrialcombinedLAT_Spiral4_B.dat. 
 Copy them from Examples/Example-Biatrial-MRI/3Processing/RA_Mesh1 to the simulation folder Examples/Example-Biatrial-MRI/4Simulation/RA_Mesh1
 2. Also copy AF_Simulation.par from src to the Simulation folder.
-3. Use the following command, updated to have the path to your simulation folder there, to run the simulation step of the model:
-docker run ...
+3. From inside your simulation folder, run the simulation step of the model:
+
+    docker run --rm --volume="$PWD":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F AF_Simulation.par -simID AF
 
 Initial conditions used for simulation: 
   ![biatriallat](https://github.com/pcmlab/atrialmtk/blob/main/images/biatrial_LAT.png?raw=true) 

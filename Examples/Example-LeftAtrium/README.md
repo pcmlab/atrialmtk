@@ -109,8 +109,9 @@ Please also see notes here if you would like more information on the different s
 
 1. From the outputs of the Processing step, you will need the mesh Fibre_l.pts, Fibre_l.elem, the fibre file, Fibre_l.lon, and the LAT field, LAT_Spiral4_B.dat. Copy them from Examples/Example-LeftAtrium/3Processing/LA_Mesh1 to the simulation folder Examples/Example-LeftAtrium/4Simulation/LA_Mesh1
 2. Also copy AF_Simulation.par from src/4Simulation to the Simulation folder.
-3. Use the following command, updated to have the path to your simulation folder there, to run the simulation step of the model:
-docker run --rm --volume=/Volumes/Elements_CR/atrialmtk/Examples/Example-LeftAtrium/4Simulation/LA_Mesh1:/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F AF_Simulation.par -simID AF
+3. From inside your simulation folder (e.g. `cd Examples/Example-LeftAtrium/4Simulation/LA_Mesh1`), run the simulation step of the model:
+
+    docker run --rm --volume="$PWD":/shared:z --workdir=/shared docker.opencarp.org/opencarp/opencarp:latest openCARP +F AF_Simulation.par -simID AF
 
  
 ---
