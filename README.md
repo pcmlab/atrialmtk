@@ -7,100 +7,154 @@ To enable large in silico trials and personalised model predictions on clinical 
 
 # Installation instructions
 
-## ************Docker************
+atrialmtk runs on **Linux**, **macOS** (Intel and Apple Silicon) and **Windows** (via WSL2). You will need:
 
-You will need to make sure docker is installed and running on your machine to install and run openCARP and meshtool. You will need to install docker with sudo access:
+| Component | Used for | Install |
+|---|---|---|
+| Docker | Runs openCARP and meshtool | [below](#docker) |
+| openCARP + meshtool | Laplace solves and simulations | [below](#opencarp-and-meshtool) |
+| Miniforge (conda) | Python environments `pointpicking` and `uac` | [below](#conda-environments) |
+| ParaView and/or meshalyzer | Viewing meshes and results | [below](#visualisation-paraview-and-meshalyzer) |
 
-Install docker: https://docs.docker.com/engine/install/
+> **Windows users:** follow the step-by-step guide in **[docs/INSTALL_WINDOWS.md](docs/INSTALL_WINDOWS.md)**. Everything runs inside Ubuntu on WSL2, and the commands in the rest of this README then work unchanged.
 
-For Linux - to install with sudo access, please follow these steps post-installation:
+## Docker
 
-1. Create the docker group:
+- **macOS / Windows:** install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and start it. Docker Desktop must be running whenever you use openCARP.
+- **Linux:** install [Docker Engine](https://docs.docker.com/engine/install/), then allow your user to run docker without `sudo`:
 
-   ```
-   sudo groupadd docker
     ```
-2. Add the user to the docker group:
-
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    newgrp docker
     ```
-   sudo usermod -aG docker $USER
-    ```
-    
-3. Activate the changes to the groups:
 
-   ```
-   newgrp docker
-    ```
-       
-4. You will need to restart your computer to see if docker works without sudo access. 
-5. Verify that you can run docker commands without sudo:
-    
-    ```
-   docker run --rm hello-world
-    ```
-    
-    This command downloads a test image and runs it in a container. When the container runs, it prints a message and exits.
-    
+    Log out and back in (or restart) for this to take effect.
 
-## ****************openCARP****************
+Check that docker works:
 
-Follow these steps to install openCARP as a docker container on the users local machine (an alternative method can be found here: https://opencarp.org/download/installation for the direct installation of openCARP onto a HPC).
+```
+docker run --rm hello-world
+```
 
-Docker installation: https://opencarp.org/download/installation#installation-of-opencarp-docker-containers
+## openCARP and meshtool
 
-1. Once docker is installed on your machine with sudo access, do: 
-    
-    ```
-   docker pull docker.opencarp.org/opencarp/opencarp:latest
-    ```
-    
-3. Then check you have some output from: 
-    
-   ```
-   docker run -it docker.opencarp.org/opencarp/opencarp:latest
-   ```
-    
-    The command line should change to something like: root@……..:/openCARP#
-    
-5. Type exit and press enter to close the openCARP interpreter. You will now be able to use openCARP. 
+Pull the openCARP image (this includes meshtool):
 
+```
+docker pull docker.opencarp.org/opencarp/opencarp:latest
+docker run --rm docker.opencarp.org/opencarp/opencarp:latest openCARP -buildinfo
+```
 
-## **meshtool**
+The second command should print the openCARP version. To install openCARP directly (for example on a HPC system) see https://opencarp.org/download/installation.
 
-meshtool may be included with openCARP depending on the installation method
+> **Note on openCARP versions:** recent openCARP releases removed the parameters `ellip_use_pt`, `parab_use_pt` and `mat_entries_per_row`. These are commented out in the `.par` files in this repository. If you see `parameter parser error: Unknown parameter ...` with a future openCARP release, comment out the named parameter in the `.par` file and please open an issue.
+>
+> **Apple Silicon Macs:** the openCARP image runs under emulation, which works but is slower. Use short simulations when testing.
 
-If you have installed openCARP as a docker container you will already have meshtool. Otherwise you can download it here: https://bitbucket.org/aneic/meshtool/src/master/ and add the location to your bashrc file, or refer back to the openCARP installation pages: https://opencarp.org/download/installation.
+## Conda environments
 
+We recommend [Miniforge](https://github.com/conda-forge/miniforge), which uses the conda-forge channel and a fast solver. 
 
-## **Instructions for conda environments (environments only need to be created once)**
+Install Miniforge (Linux, WSL and macOS):
 
-**To generate conda environments:**
-    
-1a. **Point picking environment:** 
-    
-    conda create --name pointpicking python=3.10 pandas numpy
-    
-    conda activate pointpicking
-    
-    python -m pip install pyvista==0.42.2
-    
-    python -m pip install vtk==9.2.6
-    
-(you will then be able to run the code using: python Rough_Point_Picking.py. Once you have finished, type conda deactivate.)
+```
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+bash Miniforge3-$(uname)-$(uname -m).sh -b
+~/miniforge3/bin/conda init "$(basename "$SHELL")"
+```
 
-1b. **Universal Atrial Coordinates (UAC) environment:** 
-    
-Once you have downloaded this github folder, cd to the folder src/3Processing/UAC_Codes/
-    
-    conda env create -f environment.yml
-    
-(Note: the “Collecting package metadata” and “Solving environment” steps take a few minutes each, so the environment may take up to 10 minutes to create)
+Then open a new terminal. The environments only need to be created once.
 
-This step will make the environment called UAC. You then need to activate it to run the UAC codes.
-    
-    conda activate UAC
-(if you have already installed openCARP, you will now be able to run mri-la.sh from the src folder using ./mri-la.sh. Once you have finished, type conda deactivate.)
-    
+**1a. Point picking environment (`pointpicking`):**
+
+```
+conda create -n pointpicking -c conda-forge python=3.10 pandas numpy -y
+conda activate pointpicking
+python -m pip install pyvista==0.42.2 vtk==9.2.6
+conda deactivate
+```
+
+Run the point picking code with `python Rough_Point_Picking.py` while this environment is active.
+
+**1b. Universal Atrial Coordinates environment (`uac`):**
+
+Create a Python 3.8 environment with conda, then install the pinned packages with pip (this takes about a minute; solving the full environment with conda can take a very long time). From the top level of this repository:
+
+```
+conda create -n uac -c conda-forge python=3.8 -y
+conda activate uac
+pip install -r src/3Processing/UAC_Codes/requirements.txt
+```
+
+**Apple Silicon Macs (M1 and later)** must create this environment as an Intel (x86) environment, because `vtk==9.0.3` has no native arm64 build:
+
+```
+CONDA_SUBDIR=osx-64 conda create -n uac -c conda-forge python=3.8 -y
+conda activate uac
+conda config --env --set subdir osx-64
+pip install -r src/3Processing/UAC_Codes/requirements.txt
+```
+
+Check the environment:
+
+```
+conda activate uac
+python -c "import vtk, numpy, sklearn, meshio; print('uac ok', vtk.VTK_VERSION, numpy.__version__)"
+```
+
+This should print `uac ok 9.0.3 1.23.1`. With openCARP installed you can now run the processing scripts (e.g. `./mri-la.sh` from `src/3Processing`). Type `conda deactivate` when finished.
+
+> If you created this environment previously under the name `UAC`, either keep using `conda activate UAC` or remove it with `conda env remove -n UAC` and recreate it as above.
+
+## Visualisation: ParaView and meshalyzer
+
+**ParaView** (recommended on all platforms): download from https://www.paraview.org/download/
+
+- Windows: the `.msi` installer named `...-Windows-Python3.x-msvc2017-AMD64.msi` (without "MPI" in the name).
+- macOS: the `.dmg` for your chip (`arm64` for Apple Silicon, `x86_64` for Intel). Check via Apple menu, About This Mac.
+- Linux: the `.tar.gz`; extract it and run `bin/paraview`.
+
+**meshalyzer**: releases are at https://git.opencarp.org/openCARP/meshalyzer/-/releases. Builds are provided for Linux and Windows only; on macOS it must be built from source.
+
+*Linux and Windows (WSL):*
+
+```
+sudo apt update
+sudo apt install -y libfuse2t64 libgl1 libglu1-mesa || sudo apt install -y libfuse2 libgl1 libglu1-mesa
+mkdir -p ~/bin
+mv ~/Downloads/Meshalyzer-*-x86_64.AppImage ~/bin/meshalyzer    # adjust to where you saved it
+chmod +x ~/bin/meshalyzer
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+meshalyzer
+```
+
+If it fails with a FUSE error (common on WSL), extract the AppImage instead:
+
+```
+cd ~/bin
+./meshalyzer --appimage-extract && mv squashfs-root meshalyzer-app && rm meshalyzer
+ln -s ~/bin/meshalyzer-app/AppRun ~/bin/meshalyzer
+```
+
+*macOS (build from source):*
+
+```
+brew install cmake fltk glew freetype libpng pkg-config libomp
+git clone https://git.opencarp.org/openCARP/meshalyzer.git
+cd meshalyzer
+conda deactivate          # repeat until no environment is active, so conda libraries are not picked up
+make -j
+ln -sf "$PWD/meshalyzer" /opt/homebrew/bin/meshalyzer    # Intel Macs: /usr/local/bin/meshalyzer
+```
+
+Build from a git clone rather than the source zip: the build needs the `.git` folder.
+
+*Updating meshalyzer:*
+
+- Linux / WSL: download the new AppImage and replace `~/bin/meshalyzer` with it (or, if you used the extracted version, delete `~/bin/meshalyzer-app` and repeat the extract step).
+- macOS: `cd` to your meshalyzer clone, then `git pull && make clean && make -j`. The symlink picks up the new build automatically.
+- Check the version with `meshalyzer --version` (or the About window).
 
 # **Usage** 
 
