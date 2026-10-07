@@ -17,8 +17,8 @@ gregion[0].g_in = 1
 gregion[0].num_IDs = 1
 gregion[0].ID[0] = 2
 
-ellip_use_pt = 1
-parab_use_pt = 1
+# ellip_use_pt = 1
+# parab_use_pt = 1
 
 num_stim = 1 
 stimulus[0].stimtype =     2    

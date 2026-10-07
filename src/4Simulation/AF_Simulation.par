@@ -44,7 +44,7 @@ meshname = Fibre_l
 #Matrix data
 bidm_eqv_mono = 0
 experiment = 0
-mat_entries_per_row = 45
+# mat_entries_per_row = 45
 parab_solve = 1
 cg_tol_ellip = 1e-4
 bidomain = 0
